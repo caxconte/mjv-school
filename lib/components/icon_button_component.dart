@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
 
 class IconButtonComponent extends StatelessWidget {
-  final IconData icon;
   final double size;
+  final IconData icon;
   final Color? color;
   final Function()? onPressed;
 
   const IconButtonComponent({
     super.key,
-    this.icon = Icons.add,
-    this.size = 24,
-    this.color,
     this.onPressed,
+    this.size = 24,
+    this.icon = Icons.add,
+    this.color,
   });
 
   @override
   Widget build(BuildContext context) {
     return IconButton(
       icon: Icon(icon),
-      iconSize: size,
       color: color,
+      iconSize: size,
       onPressed: onPressed,
     );
   }
