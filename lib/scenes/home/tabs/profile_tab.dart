@@ -17,7 +17,7 @@ class ProfileTab extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: Row(children: [
               const CircleAvatar(child: Text('C')),
-              const SpacerComponent(size: 8, isHorizontalSpacer: false),
+              const SpacerComponent(size: 8, isHorizontal: false),
               const Text('Camila Conte',
                   style: TextStyle(fontWeight: FontWeight.bold)),
               const Spacer(),

@@ -18,7 +18,8 @@ class PerfilTab extends StatelessWidget {
             child: Row(children: [
               const CircleAvatar(child: Text('R')),
               const SpacerComponent(size: 8, isHorizontal: true),
-              const Text('Rafael Silva', style: TextStyle(fontWeight: FontWeight.bold)),
+              const Text('Rafael Silva',
+                  style: TextStyle(fontWeight: FontWeight.bold)),
               const SpacerComponent(isFull: true),
               IconButtonComponent(
                 icon: Icons.more_vert,
