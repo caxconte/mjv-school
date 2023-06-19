@@ -1,60 +1,57 @@
 import 'package:flutter/material.dart';
+import 'package:school/scenes/home/tabs/profile_tab.dart';
+import 'package:school/scenes/home/tabs/to_do_tab.dart';
+
 import '../../components/app_bar_component.dart';
-import '../home/tabs/profile_tab.dart';
-import '../home/tabs/to_do_tab.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({
-    super.key,
-  });
+  const HomePage({Key? key}) : super(key: key);
 
   @override
-  State createState() => _HomePage();
+  State createState() => _HomePageState();
 }
 
-// ignore: unused_element
-class _HomePage extends State<HomePage> {
-  late int selectedTab;
+class _HomePageState extends State<HomePage> {
+  late int abaSelecionada;
 
-  void handleTabs(int tabIndex) {
+  final List<BottomNavigationBarItem> _abas = [
+    const BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+    const BottomNavigationBarItem(
+        icon: Icon(Icons.account_circle), label: 'Perfil'),
+  ];
+
+  final List<Widget> _conteudos = [
+    const ToDoTab(),
+    const ProfileTab(),
+  ];
+
+  void handleTab(int tabIdx) {
     setState(() {
-      selectedTab = tabIndex;
+      abaSelecionada = tabIdx;
     });
   }
 
   @override
   void initState() {
-    selectedTab = 0;
+    abaSelecionada = 0;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final List<BottomNavigationBarItem> _tabs = [
-      const BottomNavigationBarItem(
-        icon: Icon(Icons.home),
-        label: 'Home',
-      ),
-      const BottomNavigationBarItem(
-        icon: Icon(Icons.account_circle),
-        label: 'Profile',
-      ),
-    ];
-
-    final List<Widget> _content = [
-      const ToDoTab(
-        initialValue: 1,
-      ),
-      const ProfileTab(),
-    ];
-
     return Scaffold(
       appBar: const AppBarComponent(),
-      body: _content.elementAt(selectedTab),
+      body: _conteudos.elementAt(abaSelecionada),
       bottomNavigationBar: BottomNavigationBar(
-        onTap: handleTabs,
-        currentIndex: selectedTab,
-        items: _tabs,
+        currentIndex: abaSelecionada,
+        items: _abas,
+        onTap: handleTab,
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          handleTab(1);
+        },
+        child: const Icon(Icons.add),
       ),
     );
   }
