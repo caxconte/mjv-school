@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:school/scenes/home/tabs/components/item_widget.dart';
+import 'package:provider/provider.dart';
 
 import '../../../components/spacer_component.dart';
-import '../../../entities/to_do_entity.dart';
+import '../../../providers/to_do_provider.dart';
+import 'components/item_widget.dart';
+import 'components/new_item_widget.dart';
 
 class ToDoTab extends StatefulWidget {
   const ToDoTab({
@@ -14,54 +16,40 @@ class ToDoTab extends StatefulWidget {
 }
 
 class _ToDoTab extends State<ToDoTab> {
-  late List<ToDoEntity> _toDoList;
+  late ToDoProvider store;
 
   void handleAdd() {
-    final item = ToDoEntity(
-      uuid: 'teste3',
-      title: 'Teste 3',
-      initialDate: DateTime.now(),
-      finalDate: DateTime.now(),
-      isDone: false,
+    showDialog(
+      context: context,
+      builder: (context) {
+        return SimpleDialog(
+          contentPadding: const EdgeInsets.all(16),
+          children: [
+            NewItemWidget(callback: (item) {
+              store.toDoList = [...store.toDoList, item];
+            }),
+          ],
+        );
+      },
     );
-
-    _toDoList.add(item);
-
-    setState(() {
-      _toDoList = _toDoList;
-    });
   }
 
-  void handleRemove(int index) {
-    _toDoList.removeAt(index);
-    setState(() {
-      _toDoList = _toDoList;
-    });
+  void handleDelete(int index) {
+    // _toDoList.removeAt(index);
+    // setState(() {
+    //   _toDoList = _toDoList;
+    // });
   }
 
   @override
   void initState() {
-    _toDoList = [
-      ToDoEntity(
-        uuid: 'teste1',
-        title: 'Teste 1',
-        initialDate: DateTime.now(),
-        finalDate: DateTime.now(),
-        isDone: false,
-      ),
-      ToDoEntity(
-        uuid: 'teste2',
-        title: 'Teste 2',
-        initialDate: DateTime.now(),
-        finalDate: DateTime.now(),
-        isDone: true,
-      ),
-    ];
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    store = Provider.of<ToDoProvider>(context);
+
     return Column(
       children: [
         ElevatedButton(
@@ -72,21 +60,22 @@ class _ToDoTab extends State<ToDoTab> {
           width: MediaQuery.of(context).size.width,
           height: 400,
           child: ListView.builder(
-            itemCount: _toDoList.length,
+            itemCount: store.toDoList.length,
             itemBuilder: (context, index) {
-              final item = _toDoList.elementAt(index);
+              final item = store.toDoList.elementAt(index);
               return Dismissible(
                 key: Key(item.uuid),
                 onDismissed: (direction) {
                   if (direction == DismissDirection.startToEnd) {
-                    handleRemove(index);
+                    handleDelete(index);
                   }
                 },
                 child: ItemWidget(
-                    item: item,
-                    onPressed: () {
-                      handleAdd();
-                    }),
+                  item: item,
+                  onPressed: () {
+                    handleAdd();
+                  },
+                ),
               );
             },
           ),
