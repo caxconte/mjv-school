@@ -17,40 +17,39 @@ class ProfileTab extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: Row(children: [
               const CircleAvatar(child: Text('C')),
-              const SpacerComponent(size: 8, isHorizontal: false),
+              const SpacerComponent(size: 8, isHorizontal: true),
               const Text('Camila Conte',
                   style: TextStyle(fontWeight: FontWeight.bold)),
-              const Spacer(),
+              const SpacerComponent(isFull: true),
               IconButtonComponent(
                 icon: Icons.more_vert,
                 onPressed: () {},
-                color: Colors.black,
-                size: 24,
-              )
+              ),
             ]),
           ),
         ),
-        const SizedBox(height: 16),
+        const SpacerComponent(),
         const Text(
           'Minhas estatísticas',
           style: TextStyle(fontSize: 18),
         ),
-        const SpacerComponent(size: 16),
+        const SizedBox(height: 16),
         const Row(children: [
           Icon(Icons.list),
           SizedBox(width: 8),
           Text('Total de notas: '),
           Text('0'),
         ]),
+        const SpacerComponent(),
         const Row(children: [
           Icon(Icons.list),
           SizedBox(width: 8),
           Text('Concluídas: '),
           Text('0'),
         ]),
-        const SizedBox(height: 16),
-        const Divider(),
-        const SizedBox(height: 16),
+        const SpacerComponent(),
+        const SpacerComponent(isHorizontal: true, isFull: true),
+        const SpacerComponent(),
         const Text(
           'Minhas estatísticas',
           style: TextStyle(fontSize: 18),
@@ -58,7 +57,7 @@ class ProfileTab extends StatelessWidget {
         const SizedBox(height: 16),
         Row(children: [
           const Text('Tema escuro'),
-          const Spacer(),
+          const SpacerComponent(isFull: true),
           Switch(value: true, onChanged: (val) {}),
         ])
       ]),

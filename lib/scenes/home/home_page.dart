@@ -1,39 +1,39 @@
 import 'package:flutter/material.dart';
-import 'package:school/scenes/home/tabs/profile_tab.dart';
-import 'package:school/scenes/home/tabs/to_do_tab.dart';
 
 import '../../components/app_bar_component.dart';
+import 'tabs/to_do_tab.dart';
+import 'tabs/profile_tab.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   State createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  late int abaSelecionada;
+  late int selectedTab;
 
-  final List<BottomNavigationBarItem> _abas = [
+  final List<BottomNavigationBarItem> _tabs = [
     const BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
     const BottomNavigationBarItem(
         icon: Icon(Icons.account_circle), label: 'Perfil'),
   ];
 
-  final List<Widget> _conteudos = [
+  final List<Widget> _content = [
     const ToDoTab(),
     const ProfileTab(),
   ];
 
   void handleTab(int tabIdx) {
     setState(() {
-      abaSelecionada = tabIdx;
+      selectedTab = tabIdx;
     });
   }
 
   @override
   void initState() {
-    abaSelecionada = 0;
+    selectedTab = 0;
     super.initState();
   }
 
@@ -41,10 +41,10 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const AppBarComponent(),
-      body: _conteudos.elementAt(abaSelecionada),
+      body: _content.elementAt(selectedTab),
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: abaSelecionada,
-        items: _abas,
+        currentIndex: selectedTab,
+        items: _tabs,
         onTap: handleTab,
       ),
       floatingActionButton: FloatingActionButton(

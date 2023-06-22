@@ -1,9 +1,11 @@
 class ToDoChecklistEntity {
-  String titulo;
+  String title;
   bool isChecked;
 
   ToDoChecklistEntity({
-    required this.titulo,
+    required this.title,
     this.isChecked = false,
   });
+
+  static fromJsonList(json) {}
 }
